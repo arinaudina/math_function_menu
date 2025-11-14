@@ -1,0 +1,1 @@
+clang math_function_menu.cpp case_menu.cpp functionlib.cpp helper.cpp -o program 

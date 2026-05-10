@@ -1,13 +1,11 @@
-#include <stdio.h>
-#include <locale.h>
-#define ERROR -2
+#include "subfunctions_lib.h"
 
-int function_сase(int error, int *answer);
+int function_сase(int result, int *answer);
 
 int main()
 {
     int answer = 0;
-    int error = 0;
+    int result = 0;
 
     do
     {
@@ -15,37 +13,39 @@ int main()
             "\nФункции:\n"
             "  1. f(x) = sin(x)\n"
             "  2. f(x) = cos(x)\n"
-
+            "  3. f(x) = exp(x)\n"
             "  0. Выход\n"
                 "\nВведите номер функции, которую необходимо вычислить:  "
             );
         
-        if(scanf("%d",&answer) != 1)
-        {
-            printf("\nERROR:\nПроизошла ошибка при вводе значений. Попробуйте запустить программу снова\n");
-            answer = ERROR;
-        }
-
+        answer =input(answer);
+        if (answer == ERROR)
+            return ERROR;
+      
         switch(answer)
         {
             case 1:
             {
-                error = function_сase(error, &answer);
+                result = function_сase(result, &answer);
                 break;
             }
             case 2:
             {
-                error = function_сase(error, &answer);
+                result = function_сase(result, &answer);
                 break;
+            }
+            case 3:
+            {
+                result = function_сase(result, &answer);
             }
             case 0: 
             {
                 printf("\nВыход...\nРабота завершена корректно\n");
-                return 0;
+                return SUCCESS;
             }
         }
 
-    } while ((answer != ERROR) && (error != ERROR));
+    } while (result != ERROR);
 
-    return -2;
+    return ERROR;
 }

@@ -1,40 +1,47 @@
-#include <stdio.h>
-#include "subfunctions_case_lib.h"
+#include "subfunctions_lib.h" // пользовательская библиотека
 
-int function_сase(int error, int *answer)
+int function_сase(int result, int *answer)
 {
     if (answer == NULL)
-        return -2;
+        return ERROR;
 
     int step = 0;
     double x = 0.;
-    x = input(&step);
 
-    if (x != -2)
-    {
-        double sum = 0.;
-        double array[step];
-        if (*answer == 1)
-        {
-            sum = sum_sin(&x,&step,array);
-        }
-        else if (*answer == 2)
-        {
-            sum = sum_cos(&x,&step,array);
-        }
-        
-        int res = 0;
-        res = print(sum,array,step);
-        if (res != 0)
-        {
-            return -2;
-        }
+    printf("\nВведите значение 'x':  ");
+    x = input(x);
+    if (x == ERROR)
+        return ERROR;
 
-    }
-    else
+    do
     {
-        return -2;
+        printf("\nВведите количество шагов:  ");
+        step = input(step);
+        if ( step == ERROR)
+            return ERROR;
+    } while (step <= 0);
+
+    double res = 0.;
+    double array_steps_res[step];
+
+    switch(*answer)
+    {
+        case 1:
+        {
+            x = range_changes(&x);
+            res = res_sin(&x,&step,array_steps_res);
+        }
+        case 2:
+        {
+            x = range_changes(&x);
+            res = res_cos(&x,&step,array_steps_res);
+        }
+        case 3:
+        {
+            res = res_exp(&x,&step,array_steps_res);
+        }
     }
-    
-    return 0;
+
+    res = print(&x,res,array_steps_res,step);
+    return res;
 }
